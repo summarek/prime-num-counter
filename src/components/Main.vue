@@ -11,25 +11,31 @@
       <form>
         <main class="inputs">
           <div class="group">
-            <input type="number" required>
+            <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="fromNumber" required>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>{{fromLabel}}</label>
           </div>
           <div class="group">
-            <input type="number" required>
+            <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="toNumber" required>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>{{toLabel}}</label>
           </div>
         </main>
-        <div class="btn">
+        <div @click="countFirstNumbers" class="btn">
           <p>{{btnText}}</p>
         </div>
       </form>
     </section>
-    <p class="outputInfo">{{outputInfo}}</p>
-    <div class="output-container">sdsd</div>
+    <p class="outputInfo">
+      {{outputInfo1}} {{pierwszaCount}}
+      {{outputInfo2}} {{superPierwszaCount}}
+      {{outputInfo3}}
+    </p>
+    <div class="output-container">
+      <p>{{outputTab}}</p>
+    </div>
     <h2 class="legend">{{legendText}}</h2>
     <div class="legend-items">
       <div class="legend-item">
@@ -57,13 +63,81 @@ export default {
     "legendText",
     "legendPrimaryText",
     "legendSuperPrimaryText",
-    "outputInfo"
+    "outputInfo1",
+    "outputInfo2",
+    "outputInfo3",
+    "invalidInputMessage"
   ],
   data() {
     return {
-      fromNum: 1,
-      toNum: 1
+      tab: [],
+      outputTab: "",
+      fromNumber: 1,
+      toNumber: 100,
+      dzielniki: 0,
+      superPierwsza: 0,
+      dzielnikiSuper: 0,
+      superPierwszaCount: 0,
+      pierwszaCount: 0
     };
+  },
+  methods: {
+    countFirstNumbers: function(fromNumber, toNumber) {
+      this.tab = [];
+      this.outputTab = [];
+      this.dzielniki = 0;
+      this.superPierwsza = 0;
+      this.dzielnikiSuper = 0;
+      this.superPierwszaCount = 0;
+      this.pierwszaCount = 0;
+      for (var i = this.fromNumber; i < this.toNumber; i++) {
+        this.tab[i] = i;
+      }
+      console.log(this.tab);
+
+      this.tab.forEach(element => {
+        for (var j = 0; j <= element; j++) {
+          if (element % j === 0) {
+            this.dzielniki++;
+          }
+        }
+        if (this.dzielniki === 2) {
+          this.pierwszaCount++;
+          for (var g = 0; g < String(element).length; g++) {
+            this.superPierwsza += parseInt(String(element)[g]);
+          }
+          for (var h = 0; h <= this.superPierwsza; h++) {
+            if (this.superPierwsza % h === 0) {
+              this.dzielnikiSuper++;
+            }
+          }
+          if (this.dzielnikiSuper == 2 && typeof element == "number") {
+            this.superPierwszaCount++;
+            this.outputTab.push(element);
+            console.log(element + "<------- to jest liczba super pierwsza");
+          } else if (typeof element == "number") {
+            this.outputTab.push(element);
+            console.log(element + "<------- to jest liczba pierwsza");
+          }
+          this.dzielnikiSuper = 0;
+          this.superPierwsza = 0;
+        }
+        this.dzielniki = 0;
+      });
+      if (this.superPierwszaCount == 0 && this.pierwszaCount == 0) {
+        this.outputTab.push(this.invalidInputMessage);
+      }
+      document.querySelector(".outputInfo").style.display = "block";
+      console.log(
+        `W tym ciągu jest ${this.pierwszaCount} liczb pierwszych i ${
+          this.superPierwszaCount
+        } liczb super pierwszych.`
+      );
+      this.outputInfo = `  W tym ciągu jest ${
+        this.pierwszaCount
+      } liczb pierwszych i ${this.superPierwszaCount} liczb super pierwszych.`;
+      this.outputTab = this.outputTab.join(", ");
+    }
   }
 };
 </script>
@@ -78,12 +152,12 @@ export default {
   width: 90%;
   margin: auto;
   h1 {
-    font-size: 20px;
+    font-size: 1.3em;
     text-align: center;
     font-weight: bold;
   }
   h2 {
-    font-size: 20px;
+    font-size: 1.3em;
     text-align: center;
     font-weight: 400;
   }
@@ -93,7 +167,7 @@ export default {
   .underHeaderText {
     text-align: center;
     opacity: 0.7;
-    font-size: 15px;
+    font-size: 1em;
   }
 }
 .btn {
@@ -127,10 +201,10 @@ export default {
   background: #2c2d42;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
-  overflow: scroll;
+  overflow: auto;
   height: 35vh;
   width: 100%;
-  margin-top: 1.4em;
+  margin-top: 1em;
   word-break: break-all;
   line-height: 21px;
   text-align: left;
@@ -139,7 +213,7 @@ export default {
 .legend {
   text-align: left !important;
   width: 100%;
-  margin: 20px;
+  margin: 10px 10px 5px 10px;
 }
 .legend-items {
   display: flex;
@@ -148,7 +222,8 @@ export default {
 }
 .legend-item {
   display: flex;
-  width: 100%;
+  width: auto;
+  margin-right: 10px;
   align-content: center;
   align-items: center;
 }
@@ -166,17 +241,18 @@ export default {
   margin-left: 5px;
 }
 .outputInfo {
+  display: none;
   margin-top: 10px;
 }
 
 /* form starting stylings ------------------------------- */
 .group {
   position: relative;
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 }
 input {
   text-align: left;
-  font-size: 18px;
+  font-size: 1.1em;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100px;
@@ -190,7 +266,7 @@ input:focus {
 /* LABEL ======================================= */
 label {
   color: #999;
-  font-size: 18px;
+  font-size: 1.2em;
   font-weight: normal;
   position: absolute;
   pointer-events: none;
@@ -205,8 +281,8 @@ label {
 input:focus ~ label,
 input:valid ~ label {
   top: -20px;
-  font-size: 14px;
-  color: #8f96b1;
+  font-size: 1em;
+  color: #ffffff;
 }
 
 /* BOTTOM BARS ================================= */

@@ -21,9 +21,16 @@ body {
   background-color: rgba(36, 37, 51, 1);
   color: white;
   text-align: center;
+  font-size: 16px;
   a {
     text-decoration: none;
     color: white;
+  }
+}
+#nav {
+  text-align: right;
+  a {
+    margin: 0px 20px 0px 5px;
   }
 }
 </style>

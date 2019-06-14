@@ -10,7 +10,10 @@
       legendText="legend:"
       legendPrimaryText="primary: "
       legendSuperPrimaryText="super primary: "
-      outputInfo="There is 2137 primary numbers and 1200 super primary numbers: "
+      outputInfo1=" In this range are "
+      outputInfo2=" primary numbers and "
+      outputInfo3=" super primary numbers."
+      invalidInputMessage="Enter valid input data!"
     ></Main>
   </div>
 </template>

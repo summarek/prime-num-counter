@@ -11,8 +11,10 @@
       legendText="legenda:"
       legendPrimaryText="pierwsze: "
       legendSuperPrimaryText="super pierwsze: "
-      outputInfo=" W tym zakresie jest 2137 liczb pierwszych
-1200 liczb superpierwszych: "
+      outputInfo1=" W tym zakresie jest "
+      outputInfo2=" liczb pierwszych i "
+      outputInfo3=" liczb super pierwszych."
+      invalidInputMessage="Podaj prawidłowe dane wejściowe!"
     ></Main>
   </div>
 </template>
