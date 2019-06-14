@@ -152,7 +152,7 @@ export default {
   width: 90%;
   margin: auto;
   h1 {
-    font-size: 1.3em;
+    font-size: 1.7em;
     text-align: center;
     font-weight: bold;
   }
