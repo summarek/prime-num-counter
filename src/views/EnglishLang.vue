@@ -14,6 +14,7 @@
       outputInfo2=" primary numbers and "
       outputInfo3=" super primary numbers."
       invalidInputMessage="Enter valid input data!"
+      bigScopeMess="The maximum range of the thrust is 100 000, reduce the range!"
     ></Main>
   </div>
 </template>

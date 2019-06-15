@@ -4,7 +4,7 @@
       <router-link to="/">Polish</router-link>
       <router-link to="/EnglishLang">English</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

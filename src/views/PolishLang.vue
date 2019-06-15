@@ -15,14 +15,13 @@
       outputInfo2=" liczb pierwszych i "
       outputInfo3=" liczb super pierwszych."
       invalidInputMessage="Podaj prawidłowe dane wejściowe!"
+      bigScopeMess="Maksymalny zakres ciągu to 100 000, zmniejsz zakres!"
     ></Main>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import Main from "@/components/Main.vue";
-
 export default {
   name: "home",
   components: {

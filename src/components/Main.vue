@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
     <header>
-      <h1>{{h1Text}}</h1>
+      <h1>{{ h1Text }}</h1>
       <div class="underHeader">
-        <h2>{{h2Text}}</h2>
-        <p class="underHeaderText">{{pHeader}}</p>
+        <h2>{{ h2Text }}</h2>
+        <p class="underHeaderText">{{ pHeader }}</p>
       </div>
     </header>
     <section>
@@ -14,36 +14,36 @@
             <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="fromNumber" required>
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>{{fromLabel}}</label>
+            <label>{{ fromLabel }}</label>
           </div>
           <div class="group">
             <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="toNumber" required>
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>{{toLabel}}</label>
+            <label>{{ toLabel }}</label>
           </div>
         </main>
         <div @click="countFirstNumbers" class="btn">
-          <p>{{btnText}}</p>
+          <p>{{ btnText }}</p>
         </div>
       </form>
     </section>
     <p class="outputInfo">
-      {{outputInfo1}} {{pierwszaCount}}
-      {{outputInfo2}} {{superPierwszaCount}}
-      {{outputInfo3}}
+      {{ outputInfo1 }} {{ pierwszaCount }} {{ outputInfo2 }}
+      {{ superPierwszaCount }}
+      {{ outputInfo3 }}
     </p>
     <div class="output-container">
-      <p>{{outputTab}}</p>
+      <p id="outputString">{{ outputTabString }}</p>
     </div>
-    <h2 class="legend">{{legendText}}</h2>
+    <h2 class="legend">{{ legendText }}</h2>
     <div class="legend-items">
       <div class="legend-item">
-        <p>{{legendPrimaryText}}</p>
+        <p>{{ legendPrimaryText }}</p>
         <div class="legend-color blue"></div>
       </div>
       <div class="legend-item">
-        <p>{{legendSuperPrimaryText}}</p>
+        <p>{{ legendSuperPrimaryText }}</p>
         <div class="legend-color white"></div>
       </div>
     </div>
@@ -66,7 +66,8 @@ export default {
     "outputInfo1",
     "outputInfo2",
     "outputInfo3",
-    "invalidInputMessage"
+    "invalidInputMessage",
+    "bigScopeMess"
   ],
   data() {
     return {
@@ -78,11 +79,16 @@ export default {
       superPierwsza: 0,
       dzielnikiSuper: 0,
       superPierwszaCount: 0,
-      pierwszaCount: 0
+      pierwszaCount: 0,
+      outputTabString: "",
+      rangeTab: [],
+      test: 0
     };
   },
   methods: {
     countFirstNumbers: function(fromNumber, toNumber) {
+      this.fromNumber = parseInt(this.fromNumber, 10);
+      this.toNumber = parseInt(this.toNumber, 10);
       this.tab = [];
       this.outputTab = [];
       this.dzielniki = 0;
@@ -90,10 +96,22 @@ export default {
       this.dzielnikiSuper = 0;
       this.superPierwszaCount = 0;
       this.pierwszaCount = 0;
-      for (var i = this.fromNumber; i < this.toNumber; i++) {
-        this.tab[i] = i;
+      this.rangeTab = [];
+      this.test = this.fromNumber;
+      document.querySelector(".outputInfo").style.display = "none";
+      document.querySelector("#outputString").style.color = "white";
+      document.querySelector("#outputString").style.fontWeight = "400";
+
+      if (this.toNumber - this.fromNumber > 100000) {
+        this.outputTabString = this.bigScopeMess;
+        document.querySelector("#outputString").style.color = "red";
+        document.querySelector("#outputString").style.fontWeight = "bold";
+
+        return;
       }
-      console.log(this.tab);
+      for (var w = 0; w < this.toNumber - this.fromNumber; w++) {
+        this.tab[parseInt(w, 10)] = parseInt(w, 10) + parseInt(this.test, 10);
+      }
 
       this.tab.forEach(element => {
         for (var j = 0; j <= element; j++) {
@@ -114,10 +132,8 @@ export default {
           if (this.dzielnikiSuper == 2 && typeof element == "number") {
             this.superPierwszaCount++;
             this.outputTab.push(element);
-            console.log(element + "<------- to jest liczba super pierwsza");
           } else if (typeof element == "number") {
             this.outputTab.push(element);
-            console.log(element + "<------- to jest liczba pierwsza");
           }
           this.dzielnikiSuper = 0;
           this.superPierwsza = 0;
@@ -128,15 +144,8 @@ export default {
         this.outputTab.push(this.invalidInputMessage);
       }
       document.querySelector(".outputInfo").style.display = "block";
-      console.log(
-        `W tym ciągu jest ${this.pierwszaCount} liczb pierwszych i ${
-          this.superPierwszaCount
-        } liczb super pierwszych.`
-      );
-      this.outputInfo = `  W tym ciągu jest ${
-        this.pierwszaCount
-      } liczb pierwszych i ${this.superPierwszaCount} liczb super pierwszych.`;
-      this.outputTab = this.outputTab.join(", ");
+
+      this.outputTabString = this.outputTab.join(", ");
     }
   }
 };
@@ -205,7 +214,7 @@ export default {
   height: 35vh;
   width: 100%;
   margin-top: 1em;
-  word-break: break-all;
+  word-break: break-word;
   line-height: 21px;
   text-align: left;
   padding: 10px;
