@@ -34,7 +34,9 @@
       {{ outputInfo3 }}
     </p>
     <div class="output-container">
-      <p id="outputString">{{ outputTabString }}</p>
+      <p id="outputString">
+        <span v-html="outputTabString"></span>
+      </p>
     </div>
     <h2 class="legend">{{ legendText }}</h2>
     <div class="legend-items">
@@ -131,9 +133,11 @@ export default {
           }
           if (this.dzielnikiSuper == 2 && typeof element == "number") {
             this.superPierwszaCount++;
-            this.outputTab.push(element);
+            this.outputTab.push(
+              ` <span style=color:#55c2ff;>${element}</span>`
+            );
           } else if (typeof element == "number") {
-            this.outputTab.push(element);
+            this.outputTab.push(`<span>${element}</span>`);
           }
           this.dzielnikiSuper = 0;
           this.superPierwsza = 0;
@@ -145,6 +149,7 @@ export default {
       }
       document.querySelector(".outputInfo").style.display = "block";
 
+      //  this.outputTabString = this.outputTab;
       this.outputTabString = this.outputTab.join(", ");
     }
   }
@@ -243,15 +248,19 @@ export default {
 .blue {
   margin-left: 5px;
 
-  background-color: #55c2ff;
+  background-color: #def3ff;
 }
 .white {
-  background-color: #def3ff;
+  background-color: #55c2ff;
   margin-left: 5px;
 }
 .outputInfo {
   display: none;
   margin-top: 10px;
+}
+
+span.superPrimary {
+  color: red;
 }
 
 /* form starting stylings ------------------------------- */
