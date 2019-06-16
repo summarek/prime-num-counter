@@ -23,9 +23,22 @@
             <label>{{ toLabel }}</label>
           </div>
         </main>
+
         <div @click="countFirstNumbers" class="btn">
           <p>{{ btnText }}</p>
         </div>
+        <transition
+          name="alertAnim"
+          mode="out-in"
+          enter-active-class="animated fadeInDown"
+          leave-active-class="animated fadeOutDown"
+        >
+          <p v-if="this.toNumber - this.fromNumber > 100000" class="alert">{{bigScopeMess}}</p>
+          <p
+            v-if="parseInt(this.toNumber) <= parseInt(this.fromNumber)"
+            class="alert"
+          >{{invalidInputMessage}}</p>
+        </transition>
       </form>
     </section>
     <p class="outputInfo">
@@ -33,11 +46,13 @@
       {{ superPierwszaCount }}
       {{ outputInfo3 }}
     </p>
+
     <div class="output-container">
       <p id="outputString">
         <span v-html="outputTabString"></span>
       </p>
     </div>
+
     <h2 class="legend">{{ legendText }}</h2>
     <div class="legend-items">
       <div class="legend-item">
@@ -136,8 +151,10 @@ export default {
             this.outputTab.push(
               ` <span style=color:#55c2ff;>${element}</span>`
             );
+            this.outputTabString = this.outputTab.join(", ");
           } else if (typeof element == "number") {
             this.outputTab.push(`<span>${element}</span>`);
+            this.outputTabString = this.outputTab.join(", ");
           }
           this.dzielnikiSuper = 0;
           this.superPierwsza = 0;
@@ -149,7 +166,7 @@ export default {
       }
       document.querySelector(".outputInfo").style.display = "block";
 
-      //  this.outputTabString = this.outputTab;
+      this.outputTabString = this.outputTab;
       this.outputTabString = this.outputTab.join(", ");
     }
   }
@@ -257,6 +274,23 @@ export default {
 .outputInfo {
   display: none;
   margin-top: 10px;
+}
+form {
+  position: relative;
+}
+.alert {
+  top: 40px;
+  //width: 60vw;
+  //left: calc(-15vw);
+  margin: 0 auto;
+
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-align: center;
+
+  background-color: red;
+  position: absolute;
 }
 
 span.superPrimary {
