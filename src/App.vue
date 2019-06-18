@@ -10,7 +10,7 @@
       enter-active-class="animated fadeInDown"
       leave-active-class="animated fadeOutDown"
     >
-      <router-view/>
+      <router-view />
     </transition>
     <!-- <a href="https://summarek.github.io/" target="blank">
       <div class="creator">

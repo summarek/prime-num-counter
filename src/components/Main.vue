@@ -11,13 +11,23 @@
       <form>
         <main class="inputs">
           <div class="group">
-            <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="fromNumber" required>
+            <input
+              v-on:keyup.enter="countFirstNumbers"
+              type="number"
+              v-model="fromNumber"
+              required
+            />
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>{{ fromLabel }}</label>
           </div>
           <div class="group">
-            <input v-on:keyup.enter="countFirstNumbers" type="number" v-model="toNumber" required>
+            <input
+              v-on:keyup.enter="countFirstNumbers"
+              type="number"
+              v-model="toNumber"
+              required
+            />
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>{{ toLabel }}</label>
@@ -33,11 +43,15 @@
           enter-active-class="animated fadeInDown"
           leave-active-class="animated fadeOutDown"
         >
-          <p v-if="this.toNumber - this.fromNumber > 100000 " class="alert">{{bigScopeMess}}</p>
+          <p v-if="this.toNumber - this.fromNumber > 100000" class="alert">
+            {{ bigScopeMess }}
+          </p>
           <p
-            v-if="parseInt(this.toNumber) <= parseInt(this.fromNumber) "
+            v-if="parseInt(this.toNumber) <= parseInt(this.fromNumber)"
             class="alert"
-          >{{invalidInputMessage}}</p>
+          >
+            {{ invalidInputMessage }}
+          </p>
         </transition>
       </form>
     </section>
@@ -69,15 +83,20 @@
       <h4>BY SUMMAREK</h4>
       <div class="icons">
         <a target="blank" href="https://summarek.github.io/">
-          <img width="25px" src="../assets/img/page3.svg" alt="Page icon.">
+          <img width="25px" src="../assets/img/page3.svg" alt="Page icon." />
         </a>
 
         <a target="blank" href="https://github.com/summarek">
-          <img width="25px" height="25px" src="../assets/img/github.svg" alt="github icon.">
+          <img
+            width="25px"
+            height="25px"
+            src="../assets/img/github.svg"
+            alt="github icon."
+          />
         </a>
 
         <a target="blank" href="https://www.twitch.tv/summarek">
-          <img width="25px" src="../assets/img/twitch.png" alt="twitch icon.">
+          <img width="25px" src="../assets/img/twitch.png" alt="twitch icon." />
         </a>
       </div>
     </div>
