@@ -4,7 +4,7 @@
       h1Text="KALKULATOR LICZB PIERWSZYCH
         I LICZB SUPER PIERWSZYCH"
       h2Text="Podaj zakres liczb."
-      pHeader="w przypadku dużych liczb liczenie może może to chwilę potrwać"
+      pHeader="w przypadku dużych liczb liczenie może chwilę potrwać"
       fromLabel="Od"
       toLabel="Do"
       btnText="Licz!"
