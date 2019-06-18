@@ -33,9 +33,9 @@
           enter-active-class="animated fadeInDown"
           leave-active-class="animated fadeOutDown"
         >
-          <p v-if="this.toNumber - this.fromNumber > 100000" class="alert">{{bigScopeMess}}</p>
+          <p v-if="this.toNumber - this.fromNumber > 100000 " class="alert">{{bigScopeMess}}</p>
           <p
-            v-if="parseInt(this.toNumber) <= parseInt(this.fromNumber)"
+            v-if="parseInt(this.toNumber) <= parseInt(this.fromNumber) "
             class="alert"
           >{{invalidInputMessage}}</p>
         </transition>
@@ -54,6 +54,7 @@
     </div>
 
     <h2 class="legend">{{ legendText }}</h2>
+
     <div class="legend-items">
       <div class="legend-item">
         <p>{{ legendPrimaryText }}</p>
@@ -62,6 +63,22 @@
       <div class="legend-item">
         <p>{{ legendSuperPrimaryText }}</p>
         <div class="legend-color white"></div>
+      </div>
+    </div>
+    <div class="creator-page">
+      <h4>BY SUMMAREK</h4>
+      <div class="icons">
+        <a target="blank" href="https://summarek.github.io/">
+          <img width="25px" src="../assets/img/page3.svg" alt="Page icon.">
+        </a>
+
+        <a target="blank" href="https://github.com/summarek">
+          <img width="25px" height="25px" src="../assets/img/github.svg" alt="github icon.">
+        </a>
+
+        <a target="blank" href="https://www.twitch.tv/summarek">
+          <img width="25px" src="../assets/img/twitch.png" alt="twitch icon.">
+        </a>
       </div>
     </div>
   </div>
@@ -123,7 +140,6 @@ export default {
         this.outputTabString = this.bigScopeMess;
         document.querySelector("#outputString").style.color = "red";
         document.querySelector("#outputString").style.fontWeight = "bold";
-
         return;
       }
       for (var w = 0; w < this.toNumber - this.fromNumber; w++) {
@@ -182,6 +198,7 @@ export default {
   align-items: center;
   width: 90%;
   margin: auto;
+  position: relative;
   h1 {
     font-size: 1.7em;
     text-align: center;
@@ -245,6 +262,11 @@ export default {
   text-align: left !important;
   width: 100%;
   margin: 10px 10px 5px 10px;
+  h3 {
+    display: inline;
+    float: right;
+    font-size: 1em;
+  }
 }
 .legend-items {
   display: flex;
@@ -384,6 +406,51 @@ input:focus ~ .highlight {
   -webkit-animation: inputHighlighter 0.3s ease;
   -moz-animation: inputHighlighter 0.3s ease;
   animation: inputHighlighter 0.3s ease;
+}
+
+.creator-page {
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  h4 {
+    font-family: "B612 Mono", monospace;
+    font-weight: 600;
+    filter: drop-shadow(6px 6px 6px rgba(0, 0, 0, 0.5));
+
+    text-align: justify;
+  }
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    a {
+      display: flex;
+      align-items: center;
+    }
+
+    img {
+      filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+      //  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25);
+      height: 35px;
+      width: 35px;
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .creator-page {
+    display: flex;
+    align-items: center;
+    bottom: -50px;
+    left: 0;
+    .icons {
+      margin-left: 10px;
+      align-items: center;
+      justify-content: center;
+      a {
+        margin: 0 5px 5px 5px;
+      }
+    }
+  }
 }
 
 /* ANIMATIONS ================ */
